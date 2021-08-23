@@ -16,13 +16,13 @@ export function LoginView(props) {
     })
     .then(response => {
       const data = response.data;
-      props.onLonggedIn(data);
+      props.onLoggedIn(data);
     })
     .catch(e => {
       console.log('no such user')
     });
   };
-
+ 
   return (
     <Form>
       <Form.Group controlId="formUsername">

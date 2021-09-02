@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import PropType from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios'
 
 
 export function RegistrationView(props) {
@@ -13,9 +14,21 @@ export function RegistrationView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password, email, birthday);
-     props.onRegistration(username);
-  };
+    axios.post('https://myflixdbcfv3.herokuapp.com/user', {
+      username: username,
+      password: password,
+      email: email,
+      birthday: birthday
+    })
+    .then(response => {
+      const data = response.data;
+      console.log(data);
+      window.open('/', '_self');
+    })
+    .catch(e => {
+      console.log('error registering the user')
+    });
+      };
 
   return (
     <Form>

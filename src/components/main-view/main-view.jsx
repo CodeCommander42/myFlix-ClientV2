@@ -99,7 +99,7 @@ getMovies(token) {
               <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
             </Col>
           }} />
-          <Route path="/register" render={() => {
+          <Route path="/user/registration" render={() => {
             return <Col>
               <RegistrationView />
             </Col>

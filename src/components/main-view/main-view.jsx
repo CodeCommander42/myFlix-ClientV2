@@ -8,6 +8,8 @@ import {MovieCard} from '../movie-card/movie-card';
 import {MovieView} from '../movie-view/movie-view';
 import {LoginView} from '../login-view/login-view';
 import {RegistrationView} from '../registration-view/registration-view';
+import {GenreView} from '../genre-view/genre-view';
+import {DirectorView} from '../director-view/director-view';
 
 export class MainView extends React.Component {
 
@@ -95,17 +97,27 @@ getMovies(token) {
               </Col>
             ))
           }} />
-          <Route path="/movies/:movieId" render={({ match, history }) => {
+          <Route exact path="/movies/:movieId" render={({ match, history }) => {
             return <Col md={8}>
               <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
             </Col>
           }} />
-          <Route path="/user/registration" render={() => {
-            if (user) return <Redirect to="/" />
+          <Route exact path="/user/registration" render={() => {
+            if (user) {
+              return <Redirect to="/" />
+            }
+            else {
             return <Col>
               <RegistrationView onRegistration={register => this.onRegistration(register)} />
             </Col>
+            }
           }} />
+          <Route exact path="/director-view/:name" render={() => {
+            return <DirectorView/>
+          }}/>
+          <Route exact path="/genre-view/:name" render={() => {
+            return <GenreView/>
+          }}/>
         </Row>
       </Router>
     );

@@ -81,13 +81,13 @@ getMovies(token) {
   render() {
     const {user, movies, selectedMovie, register} = this.state;
 
-    if (movies.length === 0) return <div className="main-view" />;
+    //if (movies.length === 0) return <div className="main-view" />;
   
     return (
       <Router>
         <Row className="main-view justify-content-md-center">
           <Route exact path="/" render={() => {
-            if (!register) return <RegistrationView onRegistration={register => this.onRegistration(register)} />
+            // if (!register) return <RegistrationView onRegistration={register => this.onRegistration(register)} />
             if (!user) return <Col>
             <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
           </Col>
@@ -102,6 +102,9 @@ getMovies(token) {
               <MovieView movie={movies.find(m => m._id === match.params.movieId)} onBackClick={() => history.goBack()} />
             </Col>
           }} />
+          <Route exact path="/login-view" render={() => {
+            return <LoginView/>
+          }}/>
           <Route exact path="/user/registration" render={() => {
             if (user) {
               return <Redirect to="/" />
@@ -112,12 +115,13 @@ getMovies(token) {
             </Col>
             }
           }} />
-          <Route exact path="/director-view/:name" render={() => {
-            return <DirectorView/>
+          <Route exact path="/director-view/:name" render={({history}) => {
+            return <DirectorView movie onBackClick={() => history.goBack()}/>
           }}/>
-          <Route exact path="/genre-view/:name" render={() => {
-            return <GenreView/>
+          <Route exact path="/genre-view/:name" render={({history}) => {
+            return <GenreView onBackClick={() => history.goBack()}/>
           }}/>
+          
         </Row>
       </Router>
     );

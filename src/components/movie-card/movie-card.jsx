@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 
 export class MovieCard extends React.Component {
   render() {
-    const { movie, onMovieClick } = this.props;
+    const { movie, } = this.props;
 
     return (
       <Card>
@@ -29,5 +29,4 @@ MovieCard.propTypes = {
     description: PropTypes.string,
     imagePath: PropTypes.string
   }).isRequired,
-  onMovieClick: PropTypes.func.isRequired
 };

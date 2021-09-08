@@ -3,7 +3,8 @@ import PropType from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
+
  
 
 export function RegistrationView(props) {
@@ -53,6 +54,8 @@ export function RegistrationView(props) {
         <Form.Control type="date" value={birthday} onChange={e => setBirthday(e.target.value)} />
       </Form.Group>
       <Button varient="primary" type="submit" onClick={handleSubmit}>Submit</Button>
+
+      <Link to="/login-view">Already a user? Log in here.</Link>
     </Form>
   );
 }

@@ -3,6 +3,7 @@ import PropType from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios'
+import {Link} from 'react-router-dom';
 
 export function LoginView(props) {
   const [ username, setUsername ] = useState('');
@@ -35,6 +36,9 @@ export function LoginView(props) {
         <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} />
       </Form.Group>
       <Button varient="primary" type="submit" onClick={handleSubmit}>Submit</Button>
+
+      <Link to="/user/registration">Not a user? Sign up here.</Link>
+
     </Form>
   );
 }

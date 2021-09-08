@@ -3,7 +3,7 @@ import axios from 'axios';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import {MovieCard} from '../movie-card/movie-card';
 import {MovieView} from '../movie-view/movie-view';
 import {LoginView} from '../login-view/login-view';
@@ -15,7 +15,8 @@ export class MainView extends React.Component {
     super();
     this.state = {
       movies: [],
-      selectedMovie: null
+      selectedMovie: null,
+      register: false
     }
   }
 
@@ -78,13 +79,13 @@ getMovies(token) {
   render() {
     const {user, movies, selectedMovie, register} = this.state;
 
-    if (!register) return <RegistrationView onRegistration={register => this.onRegistration(register)} />
     if (movies.length === 0) return <div className="main-view" />;
   
     return (
       <Router>
         <Row className="main-view justify-content-md-center">
           <Route exact path="/" render={() => {
+            if (!register) return <RegistrationView onRegistration={register => this.onRegistration(register)} />
             if (!user) return <Col>
             <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
           </Col>
@@ -100,8 +101,9 @@ getMovies(token) {
             </Col>
           }} />
           <Route path="/user/registration" render={() => {
+            if (user) return <Redirect to="/" />
             return <Col>
-              <RegistrationView />
+              <RegistrationView onRegistration={register => this.onRegistration(register)} />
             </Col>
           }} />
         </Row>

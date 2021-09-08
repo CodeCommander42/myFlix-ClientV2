@@ -2,14 +2,16 @@ import React, {useState} from 'react';
 import PropType from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios'
-
+import axios from 'axios';
+import {useHistory} from 'react-router-dom';
+ 
 
 export function RegistrationView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ email, setEmail ] = useState('');
   const [ birthday, setBirthday ] = useState('');
+  const historyAPI = useHistory();
 
 
   const handleSubmit = (e) => {
@@ -22,6 +24,9 @@ export function RegistrationView(props) {
     })
     .then(response => {
       const data = response.data;
+      props.onRegistration(true)
+      historyAPI.push("/");
+      //navigate to home page "/"
       console.log(data);
     })
     .catch(e => {

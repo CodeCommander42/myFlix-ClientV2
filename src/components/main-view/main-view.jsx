@@ -2,7 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
+import {Link} from 'react-router-dom';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import {MovieCard} from '../movie-card/movie-card';
 import {MovieView} from '../movie-view/movie-view';
@@ -10,6 +12,7 @@ import {LoginView} from '../login-view/login-view';
 import {RegistrationView} from '../registration-view/registration-view';
 import {GenreView} from '../genre-view/genre-view';
 import {DirectorView} from '../director-view/director-view';
+import {ProfileView} from '../profile-view/profile-view';
 
 export class MainView extends React.Component {
 
@@ -93,6 +96,9 @@ getMovies(token) {
           </Col>
             return movies.map(m => (
               <Col md={3} key={m._id}>
+                <Link to={'/profile-view/' + this.state.user}>
+                  <Button variant="link">Profile</Button>
+                </Link> 
                 <MovieCard movie={m} />
               </Col>
             ))
@@ -115,11 +121,14 @@ getMovies(token) {
             </Col>
             }
           }} />
-          <Route exact path="/director-view/:name" render={({history}) => {
-            return <DirectorView movie onBackClick={() => history.goBack()}/>
+          <Route exact path="/director-view/:name" render={({match, history}) => {
+            return <DirectorView director={movies.find(m => m.director.name === match.params.name).director} onBackClick={() => history.goBack()}/>
           }}/>
-          <Route exact path="/genre-view/:name" render={({history}) => {
-            return <GenreView onBackClick={() => history.goBack()}/>
+          <Route exact path="/genre-view/:name" render={({match, history}) => {
+            return <GenreView genre={movies.find(m => m.genre.name === match.params.name).genre} onBackClick={() => history.goBack()}/>
+          }}/>
+          <Route exact path="profile-view/:user" render={( {match, history}) => {
+            return <ProfileView  onBackClick={() => history.goBack()}/>
           }}/>
           
         </Row>

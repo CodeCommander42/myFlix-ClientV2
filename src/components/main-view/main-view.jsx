@@ -127,8 +127,8 @@ getMovies(token) {
           <Route exact path="/genre-view/:name" render={({match, history}) => {
             return <GenreView genre={movies.find(m => m.genre.name === match.params.name).genre} onBackClick={() => history.goBack()}/>
           }}/>
-          <Route exact path="profile-view/:user" render={( {match, history}) => {
-            return <ProfileView  onBackClick={() => history.goBack()}/>
+          <Route exact path="profile-view/:user" render={({history}) => {
+            return <ProfileView user={user} BackClick={() => history.goBack()}/>
           }}/>
           
         </Row>

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {Button, Form, Row} from 'react-bootstrap';
 
 export class ProfileView extends React.Component {
   constructor() {
@@ -72,10 +73,10 @@ export class ProfileView extends React.Component {
     e.preventDefault();
     
     const token = localStorage.getItem('token');
-    const username = localStorage/getItem('user');
+    const username = localStorage.getItem('user');
 
     axios.put(`https://myflixdbcfv3.herokuapp.com/user/usernameChange/${username}`, {
-      headers: {Authentication: `Bearer ${token}` },
+      headers: {Authorization: `Bearer ${token}` },
       data: {
         username: newUsername ? newUsername : this.state.username
       },
@@ -97,32 +98,42 @@ export class ProfileView extends React.Component {
     this.username = input;
   }
 
+  handleDeregister(e) {
+    e.preventDefault();
 
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+
+    axios.delete(`https://myflixdbcfv3.herokuapp.com/user/unregister/${username}`, {
+      headers: {Authorization: `Bearer ${token}` },
+    })
+    .then(() => {
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      alert('Your account has been deleted');
+      window.open(`/`, '_self');
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+  }
 
   render () {
 
-    const {user, onBackClick} = this.props;
+    const {onBackClick} = this.props;
+    const {favoriteMovies, validated} = this.state;
 
     return (
-      <div className="profile-view">
-        <div clasName="profile-username">
-        <span className="label">Username: </span>
-        <span className="value">{this.state.username}</span>
-        </div>
-        <div className="profile-email">
-          <span className="lavel">Email: </span>
-          <span className="value">{this.state.email}</span>
-        </div>
-        <div className="profile-birthday">
-          <span className="label">Birthday: </span>
-          <span className="value">{this.state.birthday}</span>
-        </div>
-        <div className="profile-favoriteMovies">
-          <span className="label">Favorite Movies: </span>
-          <span className="value">{this.state.favoriteMovies}</span>
-        </div>
-        <button onClick={() => { onBackClick(null); }}>Back</button>
-      </div>
+      <Row className="prfile-view">
+        <h1>Update your username</h1>
+          <Form noVaildate validated={validated} className="update-form" onSubmit={(e) => this.handleUpdate(e, this.username)}>
+            <Form.Group controlId="formUsername">
+              <Form.Label className="form-label">Username: </Form.Label>
+              <Form.Control type="text" placeholder="Change Username" onChange={(e) => this.setUsername(e.target.value)} />
+            </Form.Group>
+            <Button varient="primary" type="submit">Update</Button>
+          </Form>
+      </Row>
     );
   }
 }

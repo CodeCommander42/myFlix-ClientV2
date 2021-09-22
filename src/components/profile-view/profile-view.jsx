@@ -153,11 +153,11 @@ export class ProfileView extends React.Component {
             </Form.Group>
             <Form.Group controlId="formEmail">
               <Form.Label className="form-label">Email: </Form.Label>
-              <Form.Control type="text" placeholder="Change Email" onChange={(e) => this.setUsername(e.target.value)} />
+              <Form.Control type="text" placeholder="Change Email" onChange={(e) => this.setEmail(e.target.value)} />
             </Form.Group>
             <Form.Group controlId="formBirthday">
               <Form.Label className="form-label">Birthday: </Form.Label>
-              <Form.Control type="text" placeholder="Change Birthday" onChange={(e) => this.setUsername(e.target.value)} />
+              <Form.Control type="text" placeholder="Change Birthday" onChange={(e) => this.setBirthday(e.target.value)} />
             </Form.Group>
             <Button varient="primary" type="submit">Update</Button>
           </Form>

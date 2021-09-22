@@ -75,18 +75,16 @@ export class ProfileView extends React.Component {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('user');
 
-    axios.put(`https://myflixdbcfv3.herokuapp.com/user/usernameChange/${username}`, {
-      headers: {Authorization: `Bearer ${token}` },
-      data: {
-        username: newUsername ? newUsername : this.state.username
-      },
-    })
+    axios.put(`https://myflixdbcfv3.herokuapp.com/user/usernameChange/${username}`, 
+      {username: newUsername ? newUsername : this.state.username}, 
+      {headers: {Authorization: `Bearer ${token}` }}
+      )
     .then((response) => {
-      alart('Username has been updated');
+      alert('Username has been updated');
       this.setState({
         username: response.data.username
       });
-      localStorage.setItem('user', this.state.username);
+      localStorage.setItem('user', response.data.username);
       window.open(`/user/usernameChange/${username}`, '_self');
       })
       .catch(function (error) {

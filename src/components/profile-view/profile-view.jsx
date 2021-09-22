@@ -57,7 +57,7 @@ export class ProfileView extends React.Component {
     })
   }
 
-  handleUpdate(e, newUsername,) {
+  handleUpdate(e, newUsername, newPassword, newEmail, newBirthday) {
     this.setState({
       validated: null,
     });
@@ -75,17 +75,23 @@ export class ProfileView extends React.Component {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('user');
 
-    axios.put(`https://myflixdbcfv3.herokuapp.com/user/usernameChange/${username}`, 
+    axios.put(`https://myflixdbcfv3.herokuapp.com/user/userinfoChange/${username}`, 
       {username: newUsername ? newUsername : this.state.username}, 
+      {password: newPassword ? newPassword : this.state.password},
+      {email: newEmail ? newEmail : this.state.email},
+      {birthday: newBirthday ? newBirthday : this.state.birthday},
       {headers: {Authorization: `Bearer ${token}` }}
       )
     .then((response) => {
       alert('Username has been updated');
       this.setState({
-        username: response.data.username
+        username: response.data.username,
+        password: response.dtat.password,
+        email: response.data.email,
+        birthday: response.data.birthday
       });
       localStorage.setItem('user', response.data.username);
-      window.open(`/user/usernameChange/${username}`, '_self');
+      window.open(`/profile-view/${response.data.username}`, '_self');
       })
       .catch(function (error) {
         console.log(error);
@@ -95,6 +101,18 @@ export class ProfileView extends React.Component {
   setUsername(input) {
     this.username = input;
   }
+
+  setPassword(input) {
+    this.password = input;
+  }
+
+   setEmail(input) {
+     this.email = input;
+   }
+
+   setBirthday(input) {
+     this.birthday = input;
+   }
 
   handleDeregister(e) {
     e.preventDefault();
@@ -123,11 +141,23 @@ export class ProfileView extends React.Component {
 
     return (
       <Row className="prfile-view">
-        <h1>Update your username</h1>
-          <Form noVaildate validated={validated} className="update-form" onSubmit={(e) => this.handleUpdate(e, this.username)}>
+        <h1>Update your Account info</h1><br />
+          <Form noVaildate validated={validated} className="update-form" onSubmit={(e) => this.handleUpdate(e, this.username, this.password, this.email, this.birthday)}>
             <Form.Group controlId="formUsername">
               <Form.Label className="form-label">Username: </Form.Label>
               <Form.Control type="text" placeholder="Change Username" onChange={(e) => this.setUsername(e.target.value)} />
+            </Form.Group>
+            <Form.Group controlId="formPassword">
+              <Form.Label className="form-label">Password: </Form.Label>
+              <Form.Control type="text" placeholder="Change Password" onChange={(e) => this.setPassword(e.target.value)} />
+            </Form.Group>
+            <Form.Group controlId="formEmail">
+              <Form.Label className="form-label">Email: </Form.Label>
+              <Form.Control type="text" placeholder="Change Email" onChange={(e) => this.setUsername(e.target.value)} />
+            </Form.Group>
+            <Form.Group controlId="formBirthday">
+              <Form.Label className="form-label">Birthday: </Form.Label>
+              <Form.Control type="text" placeholder="Change Birthday" onChange={(e) => this.setUsername(e.target.value)} />
             </Form.Group>
             <Button varient="primary" type="submit">Update</Button>
           </Form>

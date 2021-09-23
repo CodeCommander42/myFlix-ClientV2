@@ -5,11 +5,11 @@ import {Link} from 'react-router-dom';
 
 export class MovieView extends React.Component {
 
-  addFavorite() {
+  addFavorite(movie) {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('user');
 
-    axios.post(`https://myflixdbcfv3.herokuapp.com/user/${username}/addFavorite/${props.movie._id}`, {}, {
+    axios.put(`https://myflixdbcfv3.herokuapp.com/user/${username}/addFavorite/${movie._id}`, {}, {
       headers: {Authorization: `Bearer ${token}`}
     })
     .then(response => {
@@ -48,7 +48,7 @@ export class MovieView extends React.Component {
             <Button variant="link">{movie.genre.name}</Button>
           </Link>  
         </div>
-        <Button varient="primary" className="favorite-button" value={movie._id} onClick={(e) => this.addFavorite(e, movie)}>
+        <Button varient="primary" className="favorite-button" value={movie._id} onClick={(e) => this.addFavorite(movie)}>
           Add to Favorites
         </Button>
         <button onClick={() => { onBackClick(null); }}>Back</button>

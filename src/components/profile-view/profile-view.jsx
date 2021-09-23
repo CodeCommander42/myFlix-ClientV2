@@ -136,7 +136,7 @@ export class ProfileView extends React.Component {
 
   render () {
 
-    const {onBackClick} = this.props;
+    const {movie, onBackClick} = this.props;
     const {favoriteMovies, validated} = this.state;
 
     return (

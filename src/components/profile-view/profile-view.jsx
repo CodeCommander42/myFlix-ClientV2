@@ -33,7 +33,7 @@ export class ProfileView extends React.Component {
         password: response.data.password,
         email: response.data.email,
         birthday: response.data.birthday,
-        favoriteMovies: response.data.favoriteMovies
+        favoriteMovies: this.props.movies.filter(movie => {return response.data.favoriteMovies.includes(movie._id)})
       });
     })
     .catch(function (error) {
@@ -137,7 +137,7 @@ export class ProfileView extends React.Component {
   render () {
 
     const {movie, onBackClick} = this.props;
-    const {favoriteMovies, validated} = this.state;
+    const {validated, favoriteMovies} = this.state;
 
     return (
       <Row className="prfile-view justify-content-md-center">
@@ -146,9 +146,7 @@ export class ProfileView extends React.Component {
           <Card.Body>
             {favoriteMovies.length === 0 && <div className="text-center">Empty</div>}
             <div className="favorite-movies">
-              {favoriteMovies.length > 0 && 
-              favoriteMovies.map((movie) => {
-                if (movie._id === favoriteMovies.find((favMovies) => favMovies === movie._id)) {
+              {favoriteMovies.map((movie) => {
                   return (
                     <CardDeck className="movie-card-deck">
                       <Card className="favorite-item card-content" style={{ width: '16rem' }} key={movie._id}>
@@ -163,12 +161,12 @@ export class ProfileView extends React.Component {
                     </CardDeck>
                   )
                 }
-              })}
+              )}
             </div>
           </Card.Body>
         
           <Card.Body>
-            <Form noVaildate validated={validated} className="update-form" onSubmit={(e) => this.handleUpdate(e, this.username, this.password, this.email, this.birthday)}>
+            <Form noValidate validated={validated} className="update-form" onSubmit={(e) => this.handleUpdate(e, this.username, this.password, this.email, this.birthday)}>
               <h2>Update your user info</h2>
               <Form.Group controlId="formUsername">
                 <Form.Label className="form-label">Username: </Form.Label>

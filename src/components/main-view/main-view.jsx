@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import {MovieCard} from '../movie-card/movie-card';
 import {MovieView} from '../movie-view/movie-view';
@@ -13,13 +14,13 @@ import {RegistrationView} from '../registration-view/registration-view';
 import {GenreView} from '../genre-view/genre-view';
 import {DirectorView} from '../director-view/director-view';
 import {ProfileView} from '../profile-view/profile-view';
+import {setMovies} from '../../actions/actions';
 
 export class MainView extends React.Component {
 
   constructor(){
     super();
     this.state = {
-      movies: [],
       selectedMovie: null,
       register: false
     }
@@ -71,10 +72,7 @@ getMovies(token) {
     headers: { Authorization: `Bearer ${token}`}
   })
   .then(response => {
-    // Assign the result to the state
-    this.setState({
-      movies: response.data
-    });
+      this.props.setMovies(response.data);
   })
   .catch(function (error) {
     console.log(error);
@@ -82,7 +80,8 @@ getMovies(token) {
 }
 
   render() {
-    const {user, movies, selectedMovie, register} = this.state;
+    const {user, selectedMovie, register} = this.state;
+    const {movies} = this.props;
 
     //if (movies.length === 0) return <div className="main-view" />;
   
@@ -99,7 +98,7 @@ getMovies(token) {
                 <Link to={'/profile-view/' + this.state.user}>
                   <Button variant="link">Profile</Button>
                 </Link> 
-                <MovieCard movie={m} />
+                <MovieList movie={movies} />
               </Col>
             ))
           }} />
@@ -136,3 +135,10 @@ getMovies(token) {
     );
   }
 }
+
+
+let mapStateToProps = state => {
+  return {movies: state.movies};
+}
+
+export default connect(mapStateToProps, {setMovies})(MainView);

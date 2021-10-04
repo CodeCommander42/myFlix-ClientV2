@@ -16,6 +16,7 @@ import {DirectorView} from '../director-view/director-view';
 import {ProfileView} from '../profile-view/profile-view';
 import {setMovies} from '../../actions/actions';
 
+
 export class MainView extends React.Component {
 
   constructor(){
@@ -134,7 +135,7 @@ getMovies(token) {
       </Router>
     );
   }
-}
+};
 
 
 let mapStateToProps = state => {

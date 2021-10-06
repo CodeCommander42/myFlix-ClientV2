@@ -1,5 +1,5 @@
 import React from 'react';
-import Col from 'react-bootsrap/Col';
+import Col from 'react-bootstrap/Col';
 import {connect} from 'react-redux';
 
 import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';

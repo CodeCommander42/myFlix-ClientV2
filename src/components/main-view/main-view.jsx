@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import {MovieCard} from '../movie-card/movie-card';
+import {MovieList} from  '../movie-list/movie-list';
 import {MovieView} from '../movie-view/movie-view';
 import {LoginView} from '../login-view/login-view';
 import {RegistrationView} from '../registration-view/registration-view';
@@ -15,7 +16,6 @@ import {GenreView} from '../genre-view/genre-view';
 import {DirectorView} from '../director-view/director-view';
 import {ProfileView} from '../profile-view/profile-view';
 import {setMovies} from '../../actions/actions';
-
 
 export class MainView extends React.Component {
 

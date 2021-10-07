@@ -94,14 +94,9 @@ getMovies(token) {
             if (!user) return <Col>
             <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
           </Col>
-            return movies.map(m => (
-              <Col md={3} key={m._id}>
-                <Link to={'/profile-view/' + this.state.user}>
-                  <Button variant="link">Profile</Button>
-                </Link> 
-                <MovieList movie={movies} />
-              </Col>
-            ))
+            return <Col md={3}> 
+            <MovieList movies={movies} />
+            </Col>
           }} />
           <Route exact path="/movies/:movieId" render={({ match, history }) => {
             return <Col md={8}>

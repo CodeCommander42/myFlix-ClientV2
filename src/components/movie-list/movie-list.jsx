@@ -20,11 +20,16 @@ function moviesList(props) {
   }
   if (!movies) return <div className="main-view" />;
 
-  return filteredMovies.map(m => (
-    <Col sm="12" md="4" lg="3" key={m._id} >
-      <MovieCard movie={m} />
+  return <>
+    <Col md={12} style={{ margin: '1px' }}>
+      <VisibilityFilterInput visibilityFilter={visibilityFilter} />
     </Col>
-  ));
+    {filteredMovies.map(m => (
+      <Col sm="12" md="4" lg="3" key={m._id} >
+        <MovieCard movie={m} />
+      </Col>
+    ))};
+  </>;
 }
 
 export default connect(mapStateToProps)(moviesList);

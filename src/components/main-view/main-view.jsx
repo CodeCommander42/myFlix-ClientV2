@@ -16,6 +16,7 @@ import { DirectorView } from '../director-view/director-view';
 import { ProfileView } from '../profile-view/profile-view';
 import { setMovies } from '../../actions/actions';
 import MovieList from '../movie-list/movie-list';
+import NavBar from '../nav-view/nav-view';
 
 export class MainView extends React.Component {
 

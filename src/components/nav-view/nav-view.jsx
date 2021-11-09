@@ -19,7 +19,6 @@ export class NavBar extends React.Component {
   render() {
     const { user } = this.props;
     const movies = `/`;
-    const profile = `/users/${user}`;
 
     if (!user) return null;
 
@@ -34,7 +33,7 @@ export class NavBar extends React.Component {
               Movies
             </Nav.Link>
 
-            <Nav.Link as={Link} to={profile} className="link-text">
+            <Nav.Link as={Link} to={'/profile-view/' + this.state.user} className="link-text">
               Profile
             </Nav.Link>
 

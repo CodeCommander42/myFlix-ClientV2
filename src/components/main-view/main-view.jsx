@@ -17,6 +17,7 @@ import { ProfileView } from '../profile-view/profile-view';
 import { setMovies } from '../../actions/actions';
 import MovieList from '../movie-list/movie-list';
 import NavBar from '../nav-view/nav-view';
+import './main-view.scss';
 
 export class MainView extends React.Component {
 
@@ -89,6 +90,7 @@ export class MainView extends React.Component {
 
     return (
       <Router>
+        <NavBar user={user} />
         <Row className="main-view">
           <Route exact path="/" render={() => {
             // if (!register) return <RegistrationView onRegistration={register => this.onRegistration(register)} />

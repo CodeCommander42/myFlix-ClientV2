@@ -98,7 +98,7 @@ export class MainView extends React.Component {
               <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
             </Col>
             return <Row>
-              <Col sm="12"><Link to={'/profile-view/' + this.state.user} >Profile</Link></Col>
+              <input class="form-control" placeholder="Search Movies" value="" />
               <MovieList movies={movies} />
             </Row>
           }} />
